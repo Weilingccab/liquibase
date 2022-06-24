@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql:
+      image: mysql:5.7.32
+      container_name: mysql
+      ports:
+          - "3306:3306"
+      environment:
+          MYSQL_ROOT_PASSWORD: '123456!!'
+          MYSQL_DATABASE: 'liquibaseTest'
+          MYSQL_USER: 'root'            
+          MYSQL_ROOT_HOST: '%'
+          LANG: C.UTF_8  # this one should be added
+      volumes:
+            - mysql-volumes:/var/lib/mysql
+            - ./mysql-dump:/docker-entrypoint-initdb.d    
+      command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+volumes:
+  mysql-volumes:

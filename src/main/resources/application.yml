@@ -1,0 +1,15 @@
+server:
+  port: 8081
+  shutdown: graceful
+logging:
+  level:
+    "liquibase" : info
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/liquibaseTest?useSSL=false
+    username: root
+    password: "123456!!"
+  liquibase:
+    enabled: true
+    contexts: local
