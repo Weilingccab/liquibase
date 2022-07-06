@@ -9,7 +9,32 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/liquibaseTest?useSSL=false
     username: root
-    password: "123456!!"
+    password: "123123!!"
+  cloud:
+    function:
+      definition: printMessage
+    stream:
+      bindings:
+        test2-in:
+          destination: test2
+          group: consumer-topic2
+        test2-out:
+          destination: test2
+          group: producer-topic2
+        test3-in:
+          destination: test3
+          group: consumer-topic3
+        test3-out: #channel
+          destination: test3 #topic(exchange)
+          group: producer-topic3
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+        bindings:
+          test3-in:
+            consumer:
+              broadcasting: true
+
   liquibase:
     enabled: true
     contexts: local
