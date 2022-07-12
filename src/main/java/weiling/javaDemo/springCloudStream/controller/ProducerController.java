@@ -1,25 +1,28 @@
 package weiling.javaDemo.springCloudStream.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import weiling.javaDemo.springCloudStream.config.Source;
 
 @RestController
+@Slf4j
 public class ProducerController {
-    @Autowired
-    private Source source;
 
-    @GetMapping("/testConnect2")
-    public void sendSucceed() {
-        source.message2().send(MessageBuilder.withPayload("Hello World...")
-                .build());
+    @Autowired
+    private StreamBridge streamBridge;
+
+
+    @GetMapping("/printHello")
+    public void printHello() {
+        streamBridge.send("printHello-out-0", "print hello....");
+
     }
 
-    @GetMapping("/testConnect3")
-    public void sendSucceed3() {
-        source.message3().send(MessageBuilder.withPayload("Hello World...")
-                .build());
+    @GetMapping("/printMessage")
+    public void printMessage() {
+        streamBridge.send("printMessage-out-0", "print message....");
+
     }
 }
